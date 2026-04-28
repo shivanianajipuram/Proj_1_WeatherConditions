@@ -1,0 +1,31 @@
+body {
+    transition: background 0.5s ease;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* Dynamic Background Classes */
+.bg-Clear { background: linear-gradient(to right, #4facfe, #00f2fe); }
+.bg-Clouds { background: linear-gradient(to right, #bdc3c7, #2c3e50); }
+.bg-Rain { background: linear-gradient(to right, #203a43, #2c5364); }
+
+.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+    width: 300px;
+}
+
+.hidden { display: none; }
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 0.8rem;
+}
