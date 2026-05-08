@@ -74,12 +74,6 @@ WeatherConditions/
 git clone https://github.com/shivanianajipuram/Proj_1_WeatherConditions.git
 ```
 
-## Move into the project folder
-
-```bash
-cd Proj_1_WeatherConditions
-```
-
 ## Open the project
 
 Open `index.html` in your browser.
