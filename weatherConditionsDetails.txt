@@ -1,0 +1,166 @@
+Title- Weather conditions
+Readme.md / Description-
+
+A weather prediction and monitoring web application that provides real-time weather information based on user location or city search. The application displays important weather parameters such as temperature, humidity, wind speed, and atmospheric conditions using an interactive and user-friendly interface.
+
+The project helps users quickly access current weather conditions and demonstrates the integration of APIs, frontend development, and real-time data handling in a web application environment.
+
+Dataset / API Used-
+The project uses real-time weather data from weather APIs.
+
+Weather Parameters Include-
+Temperature
+Humidity
+Wind Speed
+Pressure
+Weather Condition
+City Information
+Tech Stack-
+Frontend:
+HTML
+CSS
+JavaScript
+API:
+OpenWeather API
+Tools & Platforms:
+VS Code
+Git
+GitHub
+
+How to Run Locally
+Clone the repository
+git clone https://github.com/shivanianajipuram/Proj_1_WeatherConditions.git
+Open the project
+Open index.html in your browser.
+
+Technologies Used-
+HTML5
+CSS3
+JavaScript
+OpenWeather API
+
+Folder structure - 
+WeatherConditions/
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
+Codes
+File name with code
+file name- index.html
+code-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <title>Sleek Weather</title>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="cityInput" placeholder="Enter city name...">
+        <button onclick="getWeather()">Search</button>
+        
+        <div id="dashboard" class="glass hidden">
+            <h1 id="cityName">City</h1>
+            <p id="temp">--°C</p>
+            <p id="condition">Condition</p>
+            <div class="details">
+                <span id="humidity">Humidity: --%</span>
+                <span id="wind">Wind: -- m/s</span>
+            </div>
+            <div id="forecast" class="forecast-container"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+file name- style.css
+code-
+body {
+    transition: background 0.5s ease;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* Dynamic Background Classes */
+.bg-Clear { background: linear-gradient(to right, #4facfe, #00f2fe); }
+.bg-Clouds { background: linear-gradient(to right, #bdc3c7, #2c3e50); }
+.bg-Rain { background: linear-gradient(to right, #203a43, #2c5364); }
+
+.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+    width: 300px;
+}
+
+.hidden { display: none; }
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 0.8rem;
+}
+file name- script.js
+code-
+const apiKey = '736226bbca25292fb022b7d8e8e420a3';
+
+async function getWeather() {
+    console.log("Search button clicked!");
+    const city = document.getElementById('cityInput').value;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+
+    try {
+        // Fetch Current Weather
+        const weatherRes = await fetch(weatherUrl);
+        const weatherData = await weatherRes.json();
+        
+        // Update Dashboard
+        document.getElementById('cityName').innerText = weatherData.name;
+        document.getElementById('temp').innerText = `${Math.round(weatherData.main.temp)}°C`;
+        document.getElementById('condition').innerText = weatherData.weather[0].main;
+        document.getElementById('humidity').innerText = `Humidity: ${weatherData.main.humidity}%`;
+        document.getElementById('wind').innerText = `Wind: ${weatherData.wind.speed} m/s`;
+        
+        // Dynamic Background
+        document.body.className = `bg-${weatherData.weather[0].main}`;
+        document.getElementById('dashboard').classList.remove('hidden');
+
+        // Fetch Forecast
+        const forecastRes = await fetch(forecastUrl);
+        const forecastData = await forecastRes.json();
+        
+        // Filter for one reading per day (roughly)
+        const forecastHTML = forecastData.list
+            .filter((_, index) => index % 8 === 0)
+            .map(day => `<div><p>${day.dt_txt.slice(5, 10)}</p><p>${Math.round(day.main.temp)}°C</p></div>`)
+            .join('');
+        
+        document.getElementById('forecast').innerHTML = forecastHTML;
+
+    } catch (error) {
+        alert("City not found or API error.");
+    }
+}
+
+
+Inputs-
+example:
+London
+Paris
+Hyderabad
+New York
+Tokyo
+Dubai
+Sydney
+
+Deployed on: vercel
