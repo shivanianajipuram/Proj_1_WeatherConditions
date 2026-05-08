@@ -28,8 +28,7 @@ VS Code
 Git
 GitHub
 
-WeatherConditions/
-│
+WeatherConditions
 ├── index.html
 ├── style.css
 ├── script.js
